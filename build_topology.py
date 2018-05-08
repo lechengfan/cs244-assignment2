@@ -7,6 +7,7 @@ mpl.use('Agg')
 import matplotlib.pyplot as plt
 import pickle
 from itertools import islice
+from jelly_utils import *
 
 def compute_ecmp_paths(networkx_graph, n):
 	ecmp_paths = {}
@@ -125,9 +126,9 @@ def random_derangement(n):
 
 def main():
 	
-	n = 246
+	n = 16
 	numHosts = 3*n
-	d = 11
+	d = 3
 	reuse_old_result = False
 	ecmp_paths = {}
 	all_ksp = {}
@@ -146,7 +147,7 @@ def main():
 	else:
 		graph = networkx.read_adjlist(file_name)
 
-		ecmp_paths = load_obj("ecmp_paths_%s" % (file_name))
+		ecmp_paths = load_obj("ecmp_%s" % (file_name))
 		all_ksp = load_obj("ksp_%s" % (file_name))
 	print "Assembling counts from paths"
 
@@ -155,6 +156,14 @@ def main():
 	path_counts = get_path_counts(ecmp_paths, all_ksp, derangement, all_links)
 	print "Making the plot"
 	assemble_histogram(path_counts=path_counts, file_name=file_name)
+	
+	print "Transforming routes for Ripl/Riplpox use"
+	print "Transforming KSP"
+	transformed_ksp_routes = transform_paths_dpid("ksp_%s" % (file_name), n, 8)
+	save_routing_table(transformed_ksp_routes, "ksp_%s" % (file_name))
+	print "Transforming ECMP 8"
+	transformed_ecmp_routes = transform_paths_dpid("ecmp_%s" % (file_name), n, 8)
+	save_routing_table(transformed_ecmp_routes, "ecmp_8_%s" % (file_name))
 	
 if __name__ == "__main__":
 	main()

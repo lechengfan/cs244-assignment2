@@ -523,7 +523,8 @@ def launch(topo = None, routing = None, mode = None):
     raise Exception("please specify topo and args on cmd line")
   else:
     t = buildTopo(topo, topos)
-    r = getRouting(routing, t)
+    routing, paths = routing.split(",", 2)
+    r = getRouting(routing, t, paths)
 
   core.registerNew(RipLController, t, r, mode)
 

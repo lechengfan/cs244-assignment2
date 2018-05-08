@@ -55,8 +55,7 @@ class JellyfishRouting(Routing):
     def __init__(self, topo, paths):
 	
         self.topo = topo
-	name = 'ecmp_8_rrg_small_3_10'
-	with open('pickled_routes/' + name + '.pkl', 'rb') as f:
+	with open('transformed_routes/' + paths + '.pkl', 'rb') as f:
 	    self.paths = pickle.load(f)
 
     def get_route(self, src, dst, _hash):
