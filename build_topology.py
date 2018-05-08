@@ -126,7 +126,7 @@ def random_derangement(n):
 
 def main():
 	
-	n = 16
+	n = 10
 	numHosts = 3*n
 	d = 3
 	reuse_old_result = False
