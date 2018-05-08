@@ -98,14 +98,14 @@ def assemble_histogram(path_counts, file_name):
 	plt.legend(loc="upper left");
 	ax1.set_xlabel("Rank of Link")
 	ax1.set_ylabel("# of Distinct Paths Link is on")
-	plt.savefig("%s_plot.png" % file_name)
+	plt.savefig("plots/%s_plot.png" % file_name)
 	    
 def save_obj(obj, name):
-    with open('pickle_obj/'+ name + '.pkl', 'wb') as f:
+    with open('pickled_routes/'+ name + '.pkl', 'wb') as f:
         pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
 
 def load_obj(name ):
-    with open('pickle_obj/' + name + '.pkl', 'rb') as f:
+    with open('pickled_routes/' + name + '.pkl', 'rb') as f:
         return pickle.load(f)
 
 # Code adapted from:
@@ -125,10 +125,10 @@ def random_derangement(n):
 
 def main():
 	
-	n = 246
+	n = 16
 	numHosts = 3*n
-	d = 11
-	reuse_old_result = True
+	d = 3
+	reuse_old_result = False
 	ecmp_paths = {}
 	all_ksp = {}
 	file_name = "rrg_%s_%s" % (d, n)
